@@ -769,6 +769,7 @@ The following page should appear.
 ```text
 Welcome to WordPress
 ```
+![image_alt](https://github.com/master-ankitt/aws-secure-wordpress-deployment/blob/4ddacd721950fc4095b40a79f12593969798513e/images/wordpress-installation.png?raw=true)
 
 ---
 
@@ -789,6 +790,8 @@ Email Address : your-email@example.com
 
 If the installation is successful, you will see Success!
 WordPress has been installed successfully.
+![image_alt](https://github.com/master-ankitt/aws-secure-wordpress-deployment/blob/4ddacd721950fc4095b40a79f12593969798513e/images/wordpress-success-installation.png?raw=true)
+
 
 Click
 
@@ -802,10 +805,13 @@ Login using
 Username : ankit
 Password : sam@123
 ```
+![image_alt](https://github.com/master-ankitt/aws-secure-wordpress-deployment/blob/4ddacd721950fc4095b40a79f12593969798513e/images/wordpress-login-page.png?raw=true)
+
 
 Congratulations 🎉
 
 Your WordPress website is now running successfully.
+![image_alt](https://github.com/master-ankitt/aws-secure-wordpress-deployment/blob/4ddacd721950fc4095b40a79f12593969798513e/images/wordpress-content-page.png?raw=true)
 
 ---
 
