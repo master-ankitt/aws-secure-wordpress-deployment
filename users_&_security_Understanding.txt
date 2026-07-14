@@ -1,0 +1,203 @@
+# Understanding the Different Users
+
+Many beginners get confused between the database user and the WordPress administrator.
+
+This project contains three different users.
+
+| User           | Purpose                         |
+|----------------|---------------------------------|
+| admin          | Amazon RDS Master User          |
+| wordpressuser  | Database User used by WordPress |
+| ankit          | WordPress Website Administrator |
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Amazon RDS Master User
+
+Username : admin
+
+--> This account is created during the Amazon RDS setup.
+
+-> It is used for:
+
+- Creating databases
+- Creating database users
+- Granting privileges
+- Managing the database
+
+It should **never** be used by the WordPress application.
+
+
+
+
+--------------------------------------------------------------------------
+## WordPress Database User
+
+Username : wordpressuser
+
+--> This user was created manually.
+
+CREATE USER 'wordpressuser' IDENTIFIED BY 'Ankit123';
+
+GRANT ALL PRIVILEGES
+ON wordpress.*
+TO 'wordpressuser'@'%';
+
+-> This account is only used by WordPress to connect to the MySQL database.
+-> The credentials are stored inside "wp-config.php" file.
+
+-> Example:-
+
+define('DB_USER','wordpressuser');
+define('DB_PASSWORD','Ankit123');
+
+-> Users never log in using this account.
+--------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------
+## WordPress Administrator
+
+Username : sam
+
+-> This account is created after visiting the WordPress installation page.
+
+-> It is stored inside the database table "wp_users"
+
+-> This account is used to
+
+- Login to WordPress Dashboard
+- Create Posts
+- Install Plugins
+- Install Themes
+- Manage Users
+- Configure Website Settings
+
+Login URL :- http://<EC2-Public-IP>/wp-admin
+--------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------
+# Complete Architecture
+
+                     Internet
+                          │
+                          ▼
+                   EC2 Public IP
+                          │
+                          ▼
+            Apache + PHP + WordPress
+                          │
+                          ▼
+               wp-config.php
+                          │
+                          ▼
+                 wordpressuser
+                          │
+                          ▼
+                  Amazon RDS (MySQL)
+                          ▲
+                          │
+             admin (Master Database User)
+                          ▲
+                          │
+                AWS Secrets Manager
+                          ▲
+                          │
+                     IAM Role
+
+-----------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------
+# Security Best Practices
+
+--> This project follows several AWS security best practices.
+
+### Amazon RDS
+
+- Private Database
+- No Public Access
+- Dedicated Security Group
+- Secrets stored securely
+
+---
+
+### AWS Secrets Manager
+
+- Database credentials stored securely
+- Passwords are encrypted
+- Supports automatic password rotation
+- Eliminates hardcoded credentials
+
+---
+
+### IAM Role
+
+Instead of configuring AWS Access Keys on the EC2 instance, the EC2 instance assumes an IAM Role.
+
+Benefits
+
+- No Access Keys stored on EC2
+- Temporary Credentials
+- More Secure
+- Easier Permission Management
+
+---
+
+### Security Groups
+
+--> Database Security Group :-
+
+-> Allows MySQL traffic only from EC2 Security Group instead of "0.0.0.0/0"
+=> This prevents unauthorized database access.
+
+---
+
+### Principle of Least Privilege
+
+-> Instead of using admin
+-> WordPress uses wordpressuser
+
+This limits database access to only the required database.
+
+---
+
+# Project Outcome
+
+--> By completing this project, you have successfully learned how to
+
+✅ Launch an Amazon EC2 Instance
+
+✅ Create an Amazon RDS MySQL Database
+
+✅ Configure Private Database Connectivity
+
+✅ Create Security Groups
+
+✅ Store Database Credentials in AWS Secrets Manager
+
+✅ Create an IAM Role for EC2
+
+✅ Retrieve Database Credentials Securely
+
+✅ Install Apache Web Server
+
+✅ Install PHP
+
+✅ Install WordPress
+
+✅ Configure WordPress with Amazon RDS
+
+✅ Create Dedicated Database Users
+
+✅ Configure WordPress Security Keys
+
+✅ Understand the Difference Between Database Users and WordPress Users
+
+---

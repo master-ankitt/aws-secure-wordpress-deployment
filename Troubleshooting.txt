@@ -1,0 +1,56 @@
+## Troubleshooting
+
+### Error: Connection Timed Out
+
+Check that the EC2 Security Group allows:
+
+| Type | Port |
+|------|------|
+| HTTP | 80   |
+| SSH  | 22   |
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Error: Error Establishing a Database Connection
+
+Verify the following:
+
+- Amazon RDS status is **Available**
+- EC2 and RDS are in the same VPC
+- Security Groups allow MySQL (3306)
+- Database name is correct
+- Database username is correct
+- Database password is correct
+- RDS endpoint is correct
+- `wp-config.php` contains the correct database configuration
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Verify Database Connectivity
+
+--> Connect to the database.
+
+./connect-db.sh
+
+
+--> Show available databases.
+
+SHOW DATABASES;
+
+--> Expected Output
+
+information_schema
+mysql
+performance_schema
+wordpress
+
+--> Verify the WordPress user.
+
+SELECT User, Host FROM mysql.user;
+
+--> Expected Output
+
+admin
+wordpressuser
+
+*** If both users exist and the `wordpress` database is present, your database configuration is correct. ***
